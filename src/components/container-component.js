@@ -17,7 +17,7 @@ class ContainerComponent extends Component {
     handleClick() {
         var instance = axios.create({
             baseURL: config.TRACKER_API_BASE_URL,
-            headers: {'X-TrackerToken': process.env.PIVOTAL_TRACKER_API_TOKEN}
+            headers: {'X-TrackerToken': PIVOTAL_TRACKER_API_TOKEN}
         });
 
         instance.get('/projects/' + config.PROJECT_IDS.astronaut + "/stories")
