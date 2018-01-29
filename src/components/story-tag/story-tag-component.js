@@ -14,14 +14,19 @@ class StoryTagComponent extends Component {
 
     render() {
         var storyUserNames = _.map(this.props.story.usernames, (username) => {
-            return(<div> { username } </div>)
+            return(<li className = "list-group-item"> { username } </li>)
         });
         return (
-            <div>
-               <div>{ this.props.story.name }</div>
-               <div>{ storyUserNames }</div>
+            <div className = "row">
+                <div className = "col-lg-6">
+                <h6 className="">{ this.props.story.name }</h6>
+                <div className="panel-body">
+                        <ul className="btn-group">
+                            { storyUserNames }
+                        </ul>
+                </div>
+                </div>
             </div>
-
         )
     }
 }

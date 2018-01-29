@@ -9,15 +9,14 @@ class ContainerComponent extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {data: []};
-        this.handleClick = this.handleClick.bind(this)
+        this.state = {data: [], loading: false};
     }
 
     componentDidMount() {
-        this.handleClick()
+        var timer = setInterval(this.getStories(), 5000);
     }
 
-    handleClick() {
+    getStories() {
         var instance = axios.create({
             baseURL: config.TRACKER_SERVICE_BASE_URL
         });
@@ -45,8 +44,9 @@ class ContainerComponent extends Component {
             })
         }
         return (
-            <div className='container'>
-                { tagsList }
+            <div className='container container-fluid jumbotron'>
+                <h1> Tracker Display (Beta) </h1>
+                <div>{ tagsList }</div>
             </div>
         )
     }
