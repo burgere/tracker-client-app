@@ -9,11 +9,16 @@ class ContainerComponent extends Component {
     constructor(props) {
         super(props);
 
+        this.interval = null;
         this.state = {data: [], loading: false};
     }
 
+    componentWillMount() {
+        this.interval = setInterval(this.getStories(), 5000);
+    }
+
     componentDidMount() {
-        var timer = setInterval(this.getStories(), 5000);
+        
     }
 
     getStories() {
@@ -49,6 +54,10 @@ class ContainerComponent extends Component {
                 <div>{ tagsList }</div>
             </div>
         )
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
     }
 }
 
