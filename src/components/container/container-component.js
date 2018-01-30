@@ -10,7 +10,7 @@ class ContainerComponent extends Component {
         super(props);
 
         this.interval = null;
-        this.state = {data: [], loading: false};
+        this.state = {userData: [], storyData: []};
     }
 
     componentWillMount() {
@@ -34,24 +34,38 @@ class ContainerComponent extends Component {
         })
     }
 
-    refresh(data) {
+    refreshStories(storyData) {
         this.setState({
-            data: data
+            storyData: storyData
+        })
+    }
+
+    refreshUsers(userData) {
+        this.setState({
+            userData: userData
         })
     }
 
     render() {
-        let storyData = this.state.data;
+        let storyData = this.state.storyData;
         var tagsList = []
         if (storyData.length !== 0) {
             tagsList = _.map(storyData.data, (story) => {
                 return (<StoryTagComponent story = { story }></StoryTagComponent>);
             })
         }
+
+        var userList = []
+        if (userData.length !== 0) {
+            userList = _.map(userData.data, (user) => {
+                return (<UserTagComponent user = { user }></UserTagComponent>)
+            })
+        }
         return (
             <div className='container container-fluid jumbotron'>
                 <h1> Tracker Display (Beta) </h1>
-                <div>{ tagsList }</div>
+                {/* <div>{ tagsList }</div> */}
+                <div>{ userList }</div>
             </div>
         )
     }
