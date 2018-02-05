@@ -3,6 +3,7 @@ import axios from 'axios'
 import config from '../../config';
 import './container.css';
 import StoryTagComponent from '../story-tag/story-tag-component';
+import UserTagComponent from '../user-tag/user-tag-component';
 import _ from 'underscore';
 
 class ContainerComponent extends Component {
@@ -14,7 +15,7 @@ class ContainerComponent extends Component {
     }
 
     componentWillMount() {
-        this.interval = setInterval(this.getStories(), 5000);
+        this.getUsers()
     }
 
     componentDidMount() {
@@ -28,7 +29,20 @@ class ContainerComponent extends Component {
 
         instance.get("/stories")
         .then((response) => {
-            this.refresh(response)
+            this.refreshStories(response)
+        }).catch((ex) => {
+            console.log(ex);
+        })
+    }
+
+    getUsers() {
+        var instance = axios.create({
+            baseURL: config.TRACKER_SERVICE_BASE_URL
+        });
+
+        instance.get("/people")
+        .then((response) => {
+            this.refreshUsers(response)
         }).catch((ex) => {
             console.log(ex);
         })
@@ -48,6 +62,8 @@ class ContainerComponent extends Component {
 
     render() {
         let storyData = this.state.storyData;
+        let userData = this.state.userData;
+
         var tagsList = []
         if (storyData.length !== 0) {
             tagsList = _.map(storyData.data, (story) => {
@@ -58,15 +74,16 @@ class ContainerComponent extends Component {
         var userList = []
         if (userData.length !== 0) {
             userList = _.map(userData.data, (user) => {
-                return (<UserTagComponent user = { user }></UserTagComponent>)
+                return (<div className="col-4"><UserTagComponent user = { user }></UserTagComponent></div>)
             })
         }
         return (
-            <div className='container container-fluid jumbotron'>
-                <h1> Tracker Display (Beta) </h1>
-                {/* <div>{ tagsList }</div> */}
-                <div>{ userList }</div>
-            </div>
+            <div className='container'>
+                    <div className="row">
+                    {/* <div>{ tagsList }</div> */}
+                        <div className="row">{ userList }</div>
+                    </div>
+                </div>
         )
     }
 

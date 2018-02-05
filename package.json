@@ -5,9 +5,11 @@
   "dependencies": {
     "axios": "^0.17.1",
     "bootstrap": "^4.0.0",
+    "classnames": "^2.2.5",
     "create-react-app-sass": "^1.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-icons": "^2.2.7",
     "react-scripts": "1.0.17",
     "react-spinkit": "^3.0.0",
     "underscore": "^1.8.3",
