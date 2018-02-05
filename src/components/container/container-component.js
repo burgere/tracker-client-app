@@ -5,13 +5,14 @@ import './container.css';
 import StoryTagComponent from '../story-tag/story-tag-component';
 import UserTagComponent from '../user-tag/user-tag-component';
 import _ from 'underscore';
+import PropTypes from 'prop-types';
 
 class ContainerComponent extends Component {
     constructor(props) {
         super(props);
 
         this.interval = null;
-        this.state = {userData: [], storyData: []};
+        this.state = {userData: [], storyData: [], loading: false};
     }
 
     componentWillMount() {
@@ -19,7 +20,7 @@ class ContainerComponent extends Component {
     }
 
     componentDidMount() {
-        
+        setInterval(() => { this.getUsers() }, 30000)
     }
 
     getStories() {
@@ -36,6 +37,10 @@ class ContainerComponent extends Component {
     }
 
     getUsers() {
+        this.setState({
+            loading: true
+        })
+
         var instance = axios.create({
             baseURL: config.TRACKER_SERVICE_BASE_URL
         });
@@ -50,13 +55,15 @@ class ContainerComponent extends Component {
 
     refreshStories(storyData) {
         this.setState({
-            storyData: storyData
+            storyData: storyData,
+            loading: false
         })
     }
 
     refreshUsers(userData) {
         this.setState({
-            userData: userData
+            userData: userData,
+            loading: false
         })
     }
 
