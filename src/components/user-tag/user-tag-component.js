@@ -5,6 +5,7 @@ import _ from 'underscore';
 import classNames from 'classnames';
 import FaStar from 'react-icons/lib/fa/star';
 import FaCog from 'react-icons/lib/fa/cog';
+import FaBug from 'react-icons/lib/fa/bug';
 
 class UserTagComponent extends Component {
     constructor(props) {
@@ -20,8 +21,10 @@ class UserTagComponent extends Component {
             var storyClass = 'glyphicon'
             if (story.type === 'feature') {
                 return(<li className = "list-group-item story"><FaStar className="story-icon" /> { story.name } </li>)
-            } else {
+            } else if (story.type === 'chore') {
                 return(<li className = "list-group-item story"><FaCog /> { story.name } </li>)
+            } else if (story.type === 'bug') {
+                return(<li className = "list-group-item story"><FaBug /> { story.name } </li>)
             }
         });
         return (
